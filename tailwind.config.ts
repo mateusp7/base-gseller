@@ -35,7 +35,8 @@ const config = {
         success: '#519C66',
         failure: '#CC5F5F',
         gray: '#E1E2E9',
-        background: '#f4f5fa',
+        'background-light': '#f4f5fa',
+        'background-dark': '#121212',
         'neutral-1': '#1F2937',
         'neutral-2': '#374151',
         'neutral-3': '#4A5462',
@@ -119,10 +120,10 @@ const config = {
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 'var(--radix-collapsible-content-height)' },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: '0' },
         },
       },
