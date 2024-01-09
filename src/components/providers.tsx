@@ -1,5 +1,6 @@
 'use client'
 
+import { AuthProvider } from '@/app/contexts/auth-context'
 import { SidebarProvider } from '@/app/contexts/sidebar'
 import { client } from '@/lib/client'
 import { ApolloProvider } from '@apollo/client'
@@ -27,7 +28,9 @@ const Providers = ({ children }: { children: ReactNode }) => {
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>{children}</SidebarProvider>
+          <AuthProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </ApolloProvider>

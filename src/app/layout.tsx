@@ -1,6 +1,7 @@
 'use client'
 
-import Providers from '@/lib/providers'
+import Providers from '@/components/providers'
+import { Toaster } from '@/components/ui/sonner'
 import { Montserrat } from 'next/font/google'
 import './globals.css'
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${montserrat.className}  min-h-screen antialiased`}>
+      <body
+        className={`${montserrat.className} bg-background-light dark:bg-background-dark  min-h-screen antialiased`}
+      >
+        <Toaster />
         <Providers>{children}</Providers>
       </body>
     </html>
