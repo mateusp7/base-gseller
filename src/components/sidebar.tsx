@@ -10,6 +10,7 @@ import { CollapsibleItem } from './sidebar/collapsible-item'
 import { CommonItem } from './sidebar/common-item'
 import { Logout } from './sidebar/logout'
 import { Button } from './ui/button'
+import { ScrollArea } from './ui/scroll-area'
 
 export const Sidebar = () => {
   const { changeSidebarState, isOpen } = useSidebar()
@@ -43,8 +44,8 @@ export const Sidebar = () => {
             <Icons.doubleChevronRight className="ml-auto rotate-180" />
           </Button>
         </div>
-        <div className="h-[calc(100vh-80px)] relative">
-          <ul className=" space-y-0.5 p-4 py-0 font-semibold">
+        <ScrollArea className="h-[calc(100vh-80px)] ">
+          <ul className="space-y-0.5 p-4 py-0 font-semibold ">
             {sidebarOptions.map((sidebarOption) => {
               if (sidebarOption.hasCollapsibleItems) {
                 return (
@@ -65,9 +66,11 @@ export const Sidebar = () => {
                 />
               )
             })}
+            <div className="py-4">
+              <Logout />
+            </div>
           </ul>
-          <Logout />
-        </div>
+        </ScrollArea>
       </div>
     </nav>
   )
