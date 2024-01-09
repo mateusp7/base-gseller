@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { GraphQLClient } from 'graphql-request';
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -811,6 +812,7 @@ export type CollectionBreadcrumb = {
 export type CollectionCustomFields = {
   __typename?: 'CollectionCustomFields';
   featured?: Maybe<Scalars['Boolean']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
   isFemale?: Maybe<Scalars['Boolean']['output']>;
   isMale?: Maybe<Scalars['Boolean']['output']>;
   popularityScore?: Maybe<Scalars['Int']['output']>;
@@ -823,6 +825,7 @@ export type CollectionFilterParameter = {
   createdAt?: InputMaybe<DateOperators>;
   description?: InputMaybe<StringOperators>;
   featured?: InputMaybe<BooleanOperators>;
+  hasChildren?: InputMaybe<BooleanOperators>;
   id?: InputMaybe<IdOperators>;
   inheritFilters?: InputMaybe<BooleanOperators>;
   isFemale?: InputMaybe<BooleanOperators>;
@@ -874,6 +877,7 @@ export type CollectionSortParameter = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   featured?: InputMaybe<SortOrder>;
+  hasChildren?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   isFemale?: InputMaybe<SortOrder>;
   isMale?: InputMaybe<SortOrder>;
@@ -1150,6 +1154,7 @@ export type CreateChannelSocialMediaInput = {
 
 export type CreateCollectionCustomFieldsInput = {
   featured?: InputMaybe<Scalars['Boolean']['input']>;
+  hasChildren?: InputMaybe<Scalars['Boolean']['input']>;
   isFemale?: InputMaybe<Scalars['Boolean']['input']>;
   isMale?: InputMaybe<Scalars['Boolean']['input']>;
   popularityScore?: InputMaybe<Scalars['Int']['input']>;
@@ -7948,6 +7953,7 @@ export type UpdateChannelSocialMediaResult = ChannelSocialMedia | SocialMediaNot
 
 export type UpdateCollectionCustomFieldsInput = {
   featured?: InputMaybe<Scalars['Boolean']['input']>;
+  hasChildren?: InputMaybe<Scalars['Boolean']['input']>;
   isFemale?: InputMaybe<Scalars['Boolean']['input']>;
   isMale?: InputMaybe<Scalars['Boolean']['input']>;
   popularityScore?: InputMaybe<Scalars['Int']['input']>;
@@ -8378,6 +8384,11 @@ export type DeleteChannelBannerResponse = AssetNotDeletedError | BannerNotDelete
 
 export type UpdateChannelBannerResponse = ChannelNotFoundError | NotUpdatedError | UpdatedSuccess;
 
+export type ActiveAdministratorQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ActiveAdministratorQuery = { __typename?: 'Query', activeAdministrator?: { __typename?: 'Administrator', id: string, firstName: string, lastName: string, emailAddress: string, user: { __typename?: 'User', createdAt: any, roles: Array<{ __typename?: 'Role', description: string, channels: Array<{ __typename?: 'Channel', id: string, code: string, token: string }> }> } } | null };
+
 export type SignInMutationVariables = Exact<{
   username: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -8388,6 +8399,44 @@ export type SignInMutationVariables = Exact<{
 export type SignInMutation = { __typename?: 'Mutation', login: { __typename: 'CurrentUser', id: string, identifier: string } | { __typename: 'InvalidCredentialsError', errorCode: ErrorCode, message: string } | { __typename: 'NativeAuthStrategyError', errorCode: ErrorCode, message: string } };
 
 
+
+export const ActiveAdministratorDocument = `
+    query activeAdministrator {
+  activeAdministrator {
+    id
+    firstName
+    lastName
+    emailAddress
+    user {
+      roles {
+        description
+        channels {
+          id
+          code
+          token
+        }
+      }
+      createdAt
+    }
+  }
+}
+    `;
+
+export const useActiveAdministratorQuery = <
+      TData = ActiveAdministratorQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: ActiveAdministratorQueryVariables,
+      options?: UseQueryOptions<ActiveAdministratorQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) => {
+    
+    return useQuery<ActiveAdministratorQuery, TError, TData>(
+      variables === undefined ? ['activeAdministrator'] : ['activeAdministrator', variables],
+      fetcher<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>(client, ActiveAdministratorDocument, variables, headers),
+      options
+    )};
 
 export const SignInDocument = `
     mutation SignIn($username: String!, $password: String!, $rememberMe: Boolean) {

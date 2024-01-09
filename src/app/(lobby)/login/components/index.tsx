@@ -1,5 +1,6 @@
 'use client'
 
+import useAdministrator from '@/app/hooks/administrator'
 import { useAuthContext } from '@/app/hooks/auth'
 import { Icons } from '@/components/icons'
 import { PasswordInput } from '@/components/password-input'
@@ -17,6 +18,7 @@ import { Input } from '@/components/ui/input'
 import { graphqlRequestClient } from '@/lib/graphql.request'
 import { SigninSchema } from '@/lib/schemas/signin.schema'
 import { SigninData } from '@/lib/types/signin.type'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -25,9 +27,12 @@ import { toast } from 'sonner'
 
 export const FormLogin = () => {
   const requestClient = graphqlRequestClient()
-  const [isLoading, setIsLoading] = useState(false)
-  const { signIn } = useAuthContext()
+
   const router = useRouter()
+  const { signIn } = useAuthContext()
+  const { refetch: refetchActiveAdministrator } = useAdministrator()
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<SigninData>({
     resolver: zodResolver(SigninSchema),
@@ -46,6 +51,7 @@ export const FormLogin = () => {
 
     if (result?.status) {
       toast.success(result.message)
+      refetchActiveAdministrator()
       return router.push('/dashboard/')
     } else {
       toast.error('Credenciais inválidas')

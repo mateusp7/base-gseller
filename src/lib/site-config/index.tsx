@@ -76,7 +76,7 @@ export const sidebarOptions: SidebarOptionsProps[] = [
   },
   {
     id: 4,
-    principalName: 'Images',
+    principalName: 'Imagens',
     menuName: 'images',
     hasCollapsibleItems: true,
     icon: <Icons.image className="w-5 h-5" />,
