@@ -1,3 +1,6 @@
+'use client'
+
+import { useAuthContext } from '@/app/hooks/auth'
 import { Icons } from '@/components/icons'
 import { PasswordInput } from '@/components/password-input'
 import { Button } from '@/components/ui/button'
@@ -11,29 +14,48 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { graphqlRequestClient } from '@/lib/graphql.request'
+import { SigninSchema } from '@/lib/schemas/signin.schema'
+import { SigninData } from '@/lib/types/signin.type'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const LoginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-  rememberMe: z.boolean().default(false),
-})
-
-type LoginData = z.infer<typeof LoginSchema>
+import { toast } from 'sonner'
 
 export const FormLogin = () => {
-  const form = useForm<LoginData>({
-    resolver: zodResolver(LoginSchema),
+  const requestClient = graphqlRequestClient()
+  const [isLoading, setIsLoading] = useState(false)
+  const { signIn } = useAuthContext()
+  const router = useRouter()
+
+  const form = useForm<SigninData>({
+    resolver: zodResolver(SigninSchema),
     defaultValues: {
+      username: '',
+      password: '',
       rememberMe: false,
     },
   })
 
-  const handleLogin = (data: LoginData) => {
-    console.log('data', data)
+  const handleLogin = async (data: SigninData) => {
+    setIsLoading(true)
+    const { username, password } = data
+
+    const result = await signIn(username, password)
+
+    if (result?.status) {
+      toast.success(result.message)
+      return router.push('/dashboard/')
+    } else {
+      toast.error('Credenciais inválidas')
+      setIsLoading(false)
+    }
   }
+
+  useEffect(() => {
+    form.setFocus('username')
+  }, [form])
 
   return (
     <Form {...form}>
@@ -108,7 +130,10 @@ export const FormLogin = () => {
           variant="primary"
           className={`flex items-center w-full gap-1  `}
         >
-          ENTRAR
+          {isLoading && (
+            <Icons.spinner className="animate-spin w-5 h-5 text-white" />
+          )}
+          {isLoading ? 'ENTRANDO' : 'ENTRAR'}
         </Button>
       </form>
     </Form>

@@ -1,4 +1,4 @@
-schema: https://dev-siri.gseller.com.br/admin-api
+schema: https://api-siri.gseller.com.br/admin-api
 documents: './src/**/*.graphql'
 generates:
   src/utils/generated/graphql.ts:

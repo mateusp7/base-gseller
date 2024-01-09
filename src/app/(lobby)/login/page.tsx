@@ -4,11 +4,11 @@ import Theme from '@/components/theme'
 import Image from 'next/image'
 import { FormLogin } from './components'
 
-const Login = () => {
+export default function Login() {
   return (
-    <section className=" bg-[#fbfbfb] flex flex-col justify-center h-screen dark:bg-black">
-      <main className="flex flex-row justify-center items-center gap-32">
-        <section className="shadow-[0_0px_20px_-10px] shadow-black-10 rounded-md w-[550px] p-6 dark:shadow-black-60 dark:border-black-60 border border-black-10">
+    <section className=" flex flex-col justify-center h-screen ">
+      <main className="flex flex-row justify-center items-center">
+        <section className="shadow-[0_0px_20px_-10px] bg-background-light dark:bg-black shadow-black-10 rounded-md w-[550px] p-6 dark:shadow-black-80 dark:border-black-80 border border-black-10">
           <header className="flex flex-row items-center justify-between">
             <Image
               src="/gseller_logo_full.png"
@@ -30,5 +30,3 @@ const Login = () => {
     </section>
   )
 }
-
-export default Login
