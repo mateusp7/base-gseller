@@ -1,0 +1,13 @@
+schema: https://dev-siri.gseller.com.br/admin-api
+documents: './src/**/*.graphql'
+generates:
+  src/utils/generated/graphql.ts:
+    plugins:
+      - add
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      content:
+        - // @ts-nocheck
+      fetcher: graphql-request
