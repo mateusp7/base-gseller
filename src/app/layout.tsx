@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${montserrat.className} min-h-screen antialiased`}>
+      <body className={`${montserrat.className}  min-h-screen antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>
