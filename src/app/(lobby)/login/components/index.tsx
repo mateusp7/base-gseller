@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { graphqlRequestClient } from '@/lib/graphql.request'
 import { SigninSchema } from '@/lib/schemas/signin.schema'
 import { SigninData } from '@/lib/types/signin.type'
 
@@ -26,8 +25,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 export const FormLogin = () => {
-  const requestClient = graphqlRequestClient()
-
   const router = useRouter()
   const { signIn } = useAuthContext()
   const { refetch: refetchActiveAdministrator } = useAdministrator()

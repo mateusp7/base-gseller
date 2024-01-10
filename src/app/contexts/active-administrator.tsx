@@ -1,6 +1,5 @@
 'use client'
 
-import { graphqlRequestClient } from '@/lib/graphql.request'
 import {
   ActiveAdministratorQuery,
   useActiveAdministratorQuery,
@@ -16,7 +15,6 @@ type ActiveAdministratorContextData = {
   isLoading: boolean
   isSignedIn: boolean
   refetch: () => void
-  remove: () => void
 }
 
 export const ActiveAdministratorContext = createContext(
@@ -26,10 +24,7 @@ export const ActiveAdministratorContext = createContext(
 export function ActiveAdministratorProvider({
   children,
 }: ActiveAdministratorProviderProps) {
-  const requestClient = graphqlRequestClient()
-
-  const { data, refetch, isLoading, remove } =
-    useActiveAdministratorQuery(requestClient)
+  const { data, refetch, loading } = useActiveAdministratorQuery()
 
   const isSignedIn = !!data?.activeAdministrator?.id
 
@@ -37,10 +32,9 @@ export function ActiveAdministratorProvider({
     <ActiveAdministratorContext.Provider
       value={{
         data: data?.activeAdministrator,
-        isLoading,
+        isLoading: loading,
         isSignedIn,
         refetch,
-        remove,
       }}
     >
       {children}
