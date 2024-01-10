@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
-import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
+/* eslint-disable */
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -9,14 +9,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-
-function fetcher<TData, TVariables extends { [key: string]: any }>(client: GraphQLClient, query: string, variables?: TVariables, requestHeaders?: RequestInit['headers']) {
-  return async (): Promise<TData> => client.request({
-    document: query,
-    variables,
-    requestHeaders
-  });
-}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -8399,8 +8392,7 @@ export type SignInMutationVariables = Exact<{
 export type SignInMutation = { __typename?: 'Mutation', login: { __typename: 'CurrentUser', id: string, identifier: string } | { __typename: 'InvalidCredentialsError', errorCode: ErrorCode, message: string } | { __typename: 'NativeAuthStrategyError', errorCode: ErrorCode, message: string } };
 
 
-
-export const ActiveAdministratorDocument = `
+export const ActiveAdministratorDocument = gql`
     query activeAdministrator {
   activeAdministrator {
     id
@@ -8422,23 +8414,38 @@ export const ActiveAdministratorDocument = `
 }
     `;
 
-export const useActiveAdministratorQuery = <
-      TData = ActiveAdministratorQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables?: ActiveAdministratorQueryVariables,
-      options?: UseQueryOptions<ActiveAdministratorQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) => {
-    
-    return useQuery<ActiveAdministratorQuery, TError, TData>(
-      variables === undefined ? ['activeAdministrator'] : ['activeAdministrator', variables],
-      fetcher<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>(client, ActiveAdministratorDocument, variables, headers),
-      options
-    )};
-
-export const SignInDocument = `
+/**
+ * __useActiveAdministratorQuery__
+ *
+ * To run a query within a React component, call `useActiveAdministratorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActiveAdministratorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActiveAdministratorQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useActiveAdministratorQuery(baseOptions?: Apollo.QueryHookOptions<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>(ActiveAdministratorDocument, options);
+      }
+export function useActiveAdministratorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>(ActiveAdministratorDocument, options);
+        }
+export function useActiveAdministratorSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>(ActiveAdministratorDocument, options);
+        }
+export type ActiveAdministratorQueryHookResult = ReturnType<typeof useActiveAdministratorQuery>;
+export type ActiveAdministratorLazyQueryHookResult = ReturnType<typeof useActiveAdministratorLazyQuery>;
+export type ActiveAdministratorSuspenseQueryHookResult = ReturnType<typeof useActiveAdministratorSuspenseQuery>;
+export type ActiveAdministratorQueryResult = Apollo.QueryResult<ActiveAdministratorQuery, ActiveAdministratorQueryVariables>;
+export const SignInDocument = gql`
     mutation SignIn($username: String!, $password: String!, $rememberMe: Boolean) {
   login(username: $username, password: $password, rememberMe: $rememberMe) {
     __typename
@@ -8460,18 +8467,31 @@ export const SignInDocument = `
   }
 }
     `;
+export type SignInMutationFn = Apollo.MutationFunction<SignInMutation, SignInMutationVariables>;
 
-export const useSignInMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      client: GraphQLClient,
-      options?: UseMutationOptions<SignInMutation, TError, SignInMutationVariables, TContext>,
-      headers?: RequestInit['headers']
-    ) => {
-    
-    return useMutation<SignInMutation, TError, SignInMutationVariables, TContext>(
-      ['SignIn'],
-      (variables?: SignInMutationVariables) => fetcher<SignInMutation, SignInMutationVariables>(client, SignInDocument, variables, headers)(),
-      options
-    )};
+/**
+ * __useSignInMutation__
+ *
+ * To run a mutation, you first call `useSignInMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignInMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signInMutation, { data, loading, error }] = useSignInMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *      rememberMe: // value for 'rememberMe'
+ *   },
+ * });
+ */
+export function useSignInMutation(baseOptions?: Apollo.MutationHookOptions<SignInMutation, SignInMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignInMutation, SignInMutationVariables>(SignInDocument, options);
+      }
+export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
+export type SignInMutationResult = Apollo.MutationResult<SignInMutation>;
+export type SignInMutationOptions = Apollo.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
