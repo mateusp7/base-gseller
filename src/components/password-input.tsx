@@ -4,9 +4,9 @@ import * as React from 'react'
 
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
-import { Input, type InputProps } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { cva } from 'class-variance-authority'
+import { Input, type InputProps } from 'gseller-input'
 
 const inputVariants = cva(
   'w-full rounded-md border pr-10 border-black-10 bg-white font-semibold text-black !outline-none focus:border-primary focus:ring-transparent dark:bg-neutral-2 dark:text-white focus:border-primary hover:border-primary transition-all duration-200 ease-linear dark:bg-black dark:border-primary',

@@ -1,6 +1,6 @@
 'use client'
 
-import { useSidebar } from '@/app/hooks/sidebar'
+import { useSidebar } from 'gseller-sidebar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -11,6 +11,7 @@ import { Button } from './ui/button'
 
 const Header = () => {
   const { changeSidebarState, isOpen } = useSidebar()
+
   const router = useRouter()
 
   useEffect(() => {

@@ -25,6 +25,8 @@
     "clsx": "^2.1.0",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
+    "gseller-input": "^0.0.2",
+    "gseller-sidebar": "^0.0.1",
     "lucide-react": "^0.307.0",
     "next": "14.0.4",
     "next-themes": "^0.2.1",

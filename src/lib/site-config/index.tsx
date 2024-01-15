@@ -1,5 +1,5 @@
 import { Icons } from '@/components/icons'
-import { SidebarOptionsProps } from '../types/sidebar.type'
+import { SidebarOptionsProps } from 'gseller-sidebar'
 
 export const sidebarOptions: SidebarOptionsProps[] = [
   {

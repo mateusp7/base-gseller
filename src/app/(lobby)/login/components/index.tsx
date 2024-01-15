@@ -14,9 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { SigninSchema } from '@/lib/schemas/signin.schema'
 import { SigninData } from '@/lib/types/signin.type'
+import { Input } from 'gseller-input'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'

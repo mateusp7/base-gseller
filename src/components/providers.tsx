@@ -2,9 +2,9 @@
 
 import { ActiveAdministratorProvider } from '@/app/contexts/active-administrator'
 import { AuthProvider } from '@/app/contexts/auth'
-import { SidebarProvider } from '@/app/contexts/sidebar'
 import { client } from '@/lib/client'
 import { ApolloProvider } from '@apollo/client'
+import { SidebarProvider } from 'gseller-sidebar'
 import { ThemeProvider } from 'next-themes'
 import { ReactNode } from 'react'
 
