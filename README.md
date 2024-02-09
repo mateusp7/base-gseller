@@ -1,9 +1,9 @@
 # Projeto Gseller Base
 
-Este projeto foi criado para servir como uma base para o Gseller, um backoffice para gerenciamento de e-commerce. Ao instalar este projeto, você terá total liberdade para realizar instalações adicionais utilizando o comando 
+Este projeto foi criado para servir como uma base para o Gseller, um backoffice para gerenciamento de e-commerce. Ao instalar este projeto, você terá total liberdade para realizar instalações adicionais utilizando o comando
 
 ```bash
-ui-gseller add
+npx ui-gseller add
 ```
 
 ## Instalação
@@ -11,13 +11,13 @@ ui-gseller add
 Para ter acesso a esse projeto base, rode o comando:
 
 ```bash
-ui-gseller start
+npx ui-gseller start
 ```
 
 Caso tenha alguma dúvida de algum comando, rode:
 
 ```bash
-ui-gseller help
+npx ui-gseller help
 ```
 
 ## Dependencias
@@ -26,14 +26,13 @@ Fique tranquilo, pois ao rodar esse comando, ele irá iniciar o processo de inst
 
 ## O que fazer agora?
 
-Para usufruir de todos as páginas e componentes que temos, rode o comando 
+Para usufruir de todos as páginas e componentes que temos, rode o comando
 
 ```bash
-ui-gseller add [nome-da-pagina-ou-componente]
+npx ui-gseller add [nome-da-pagina-ou-componente]
 ```
 
 Após isso, todo o processo de criação da página ou componente, sera realizado de forma automática
-
 
 ## Licença
 
