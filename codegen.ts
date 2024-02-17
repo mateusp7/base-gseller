@@ -9,24 +9,24 @@ const config: CodegenConfig = {
       plugins: [
         {
           add: {
-            content: '// @ts-nocheck',
-          },
+            content: '// @ts-nocheck'
+          }
         },
         {
           add: {
-            content: '/* eslint-disable */',
-          },
+            content: '/* eslint-disable */'
+          }
         },
         'typescript',
         'typescript-operations',
-        'typescript-react-apollo',
+        'typescript-react-apollo'
       ],
 
       config: {
-        fetch: 'graphql-request',
-      },
-    },
-  },
+        fetch: 'graphql-request'
+      }
+    }
+  }
 }
 
 export default config
