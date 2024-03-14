@@ -1,0 +1,35 @@
+fragment Asset on Asset {
+  id
+  createdAt
+  updatedAt
+  name
+  fileSize
+  mimeType
+  type
+  preview
+  source
+  width
+  height
+  __typename
+}
+
+fragment Tag on Tag {
+  id
+  value
+  __typename
+}
+
+query GetAssetList($options: AssetListOptions) {
+  assets(options: $options) {
+    items {
+      ...Asset
+      tags {
+        ...Tag
+        __typename
+      }
+      __typename
+    }
+    totalItems
+    __typename
+  }
+}

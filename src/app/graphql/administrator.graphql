@@ -1,0 +1,19 @@
+query activeAdministrator {
+  activeAdministrator {
+    id
+    firstName
+    lastName
+    emailAddress
+    user {
+      roles {
+        description
+        channels {
+          id
+          code
+          token
+        }
+      }
+      createdAt
+    }
+  }
+}

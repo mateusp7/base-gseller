@@ -1,0 +1,115 @@
+fragment Channel on Channel {
+  id
+  createdAt
+  updatedAt
+  code
+  token
+  defaultCurrencyCode
+  defaultLanguageCode
+  seller {
+    id
+    name
+  }
+  customFields {
+    color
+    logo {
+      id
+      preview
+      width
+      height
+    }
+  }
+  __typename
+}
+
+query GetActiveChannel {
+  activeChannel {
+    ...Channel
+    __typename
+  }
+}
+
+mutation UpdateChannel($input: UpdateChannelInput!) {
+  updateChannel(input: $input) {
+    __typename
+
+    ... on Channel {
+      __typename
+      id
+    }
+
+    ... on ErrorResult {
+      errorCode
+      message
+      __typename
+    }
+  }
+}
+
+query GetChannelInformation($type: InformationType) {
+  getChannelInformation(type: $type) {
+    __typename
+    ... on ChannelInformation {
+      id
+      type
+      title
+      content
+      __typename
+    }
+    ... on ChannelInformationError {
+      errorCode
+      message
+      __typename
+    }
+  }
+}
+
+mutation RegisterChannelInformation($input: RegisterChannelInformationInput!) {
+  registerChannelInformation(input: $input) {
+    __typename
+
+    ... on ChannelInformation {
+      id
+    }
+
+    ... on ChannelInformationError {
+      errorCode
+      message
+      __typename
+    }
+  }
+}
+
+mutation UpdateChannelInformation($input: UpdateChannelInformationInput!) {
+  updateChannelInformation(input: $input) {
+    __typename
+
+    ... on DeleteOrUpdateChannelInformationSuccess {
+      success
+      __typename
+    }
+
+    ... on ChannelInformationError {
+      errorCode
+      message
+      __typename
+    }
+  }
+}
+
+mutation DeleteChannelInformation($type: InformationType) {
+  deleteChannelInformation(type: $type) {
+    __typename
+
+    ... on DeleteOrUpdateChannelInformationSuccess {
+      success
+      __typename
+    }
+
+    ... on ChannelInformationError {
+      errorCode
+      message
+      __typename
+    }
+  }
+}
