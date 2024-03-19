@@ -13,7 +13,7 @@
     "@apollo/client": "^3.8.8",
     "@gseller-monorepo/button": "^0.0.1",
     "@gseller-monorepo/input": "^0.0.3",
-    "@gseller-monorepo/modal": "^0.0.3",
+    "@gseller-monorepo/modal": "^0.0.4",
     "@gseller-monorepo/pagination": "^0.0.2",
     "@gseller-monorepo/select": "^0.0.6",
     "@gseller-monorepo/sidebar": "^0.0.3",

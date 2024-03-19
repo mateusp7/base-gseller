@@ -12,10 +12,9 @@ import { validyExtension, validyFilesKb } from "@/utils/send-image-validations";
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "@gseller-monorepo/button";
 import { Input } from "@gseller-monorepo/input";
-import { Modal } from "@gseller-monorepo/modal";
+import { DialogModal } from "@gseller-monorepo/modal";
 import { PaginationButtons } from "@gseller-monorepo/pagination";
 import { Select } from "@gseller-monorepo/select";
-import { toast } from "@gseller-monorepo/toast";
 import { UploadImage } from "@gseller-monorepo/upload-image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, CheckCircle, ImageIcon, Trash } from "lucide-react";
@@ -23,6 +22,8 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction, forwardRef } from "react";
 import { Form, FormProvider, useForm } from "react-hook-form";
+
+import { toast } from "@gseller-monorepo/toast";
 import { FormControl, FormField, FormItem } from "./ui/form";
 
 export interface PhotoTableProps {
@@ -108,8 +109,20 @@ const PhotoTable = forwardRef<HTMLDivElement, PhotoTableProps>(
     const [createAssets, { loading: isLoadingCreateAsset }] = useMutation(
       CREATE_ASSETS_MUTATION,
       {
-        onCompleted: () => {
+        onCompleted: (data, clientOptions) => {
+          if (data.createAssets.length > 0) {
+            toast.success(
+              `Imagem ${clientOptions?.variables?.file.name} criada com sucesso!`
+            );
+            return refetchListImages();
+          }
           refetchListImages();
+          toast.error(
+            `Ocorreu uma falha ao criar a imagem ${clientOptions?.variables?.file.name}. Por favor, tente novamente!`
+          );
+        },
+        onError: () => {
+          toast.error("Ocorreu uma falha inesperada ao criar suas imagens");
         },
       }
     );
@@ -206,176 +219,187 @@ const PhotoTable = forwardRef<HTMLDivElement, PhotoTableProps>(
 
     return (
       <FormProvider {...form}>
-        <Modal
-          className="flex flex-col w-full h-full gap-4 overflow-y-scroll sm:w-11/12 sm:overflow-y-auto sm:flex-row sm:h-2/3 3xl:w-fit 3xl:h-fit"
+        <DialogModal
+          title="Foto"
+          onCloseDialog={() => setIsOpenModal(false)}
+          className="w-full max-h-[40rem] !max-w-7xl 3xl:max-h-[50rem] rounded-md sm:h-auto overflow-y-auto"
           open={openModal}
           ref={ref}
           {...props}
         >
-          <main className="flex flex-col h-full gap-4 overflow-y-auto">
-            <div className="flex flex-col items-center justify-start gap-4 pb-4 pr-4 lg:flex-row">
-              <Button
-                type="button"
-                className="flex items-center w-full gap-1 border lg:w-fit border-black-10"
-                variant="clear"
-                onClick={handleClearImagesSelected}
-              >
-                <Trash size={18} className="text-black-80 dark:text-white" />{" "}
-                Limpar seleção
-              </Button>
-              <Select
-                name="channel"
-                className="w-full h-10 lg:w-fit"
-                defaultValue={perPage}
-                isLoading={isLoadindAssetList}
-                value={perPage}
-                onValueChange={(e) => handleChangeQuantityPerPage(e)}
-                options={quantitiyPerPage.map((quantity) => ({
-                  label: `Mostrar ${quantity.value} por vez`,
-                  value: quantity.value,
-                }))}
-              />
-              <Form {...form} className="w-full lg:w-fit">
-                <form>
-                  <FormField
-                    control={form.control}
-                    name="search"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <div className="relative">
-                            <span className="absolute -translate-y-1/2 start-4 top-1/2">
-                              <ImageIcon className="w-4 h-4 text-black-60 dark:text-black-10" />
-                            </span>
-                            <Input
-                              id="search"
-                              type="text"
-                              aria-autocomplete="none"
-                              autoComplete="off"
-                              variant="icons"
-                              placeholder="Pesquisar imagem"
-                              className="!px-0 !pl-10 pr-4"
-                              {...field}
-                            />
-                          </div>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </form>
-              </Form>
-            </div>
-            <footer className="flex items-center justify-end py-4 space-x-2 md:hidden">
-              <PaginationButtons
-                hrefToPreviousButton={`${pathname}?${createQueryString({
-                  page: Number(page) - 1,
-                  per_page: perPage ?? null,
-                })}`}
-                hrefToNextButton={`${pathname}?${createQueryString({
-                  page: Number(page) + 1,
-                  per_page: perPage ?? null,
-                })}`}
-                isLoading={isLoadindAssetList}
-                page={page}
-                pathname={pathname}
-                perPage={perPage}
-                totalItems={assetList?.assets.totalItems ?? 0}
-                className="justify-end"
-              />
-            </footer>
-            <div className="grid flex-row flex-wrap grid-cols-1 gap-4 pr-4 md:flex ">
-              {assetList?.assets.items.map((asset) => {
-                const includesInSelectedsRows = findInSelectedRows(asset);
+          <div className="flex flex-col gap-4 md:gap-0 md:flex-row">
+            <main className="flex flex-col h-full gap-4 overflow-y-auto">
+              <div className="flex flex-col items-center justify-start gap-4 pb-4 md:pr-4 lg:flex-row">
+                <Button
+                  type="button"
+                  className="flex items-center w-full gap-1 border group lg:w-fit hover:dark:bg-white text-black-80 dark:text-white hover:dark:text-black-80 border-black-10 hover:bg-black-80 hover:text-white"
+                  variant="clear"
+                  onClick={handleClearImagesSelected}
+                  disabled={listImagesSelected.length === 0}
+                >
+                  <Trash
+                    size={18}
+                    className="text-black-80 group-hover:dark:text-black-80 group-hover:text-white dark:text-white"
+                  />{" "}
+                  Limpar seleção
+                </Button>
+                <Select
+                  name="channel"
+                  className="w-full h-10 lg:w-fit"
+                  defaultValue={perPage}
+                  isLoading={isLoadindAssetList}
+                  value={perPage}
+                  onValueChange={(e) => handleChangeQuantityPerPage(e)}
+                  options={quantitiyPerPage.map((quantity) => ({
+                    label: `Mostrar ${quantity.value} por vez`,
+                    value: quantity.value,
+                  }))}
+                />
+                <Form {...form} className="w-full lg:w-fit">
+                  <form>
+                    <FormField
+                      control={form.control}
+                      name="search"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className="relative">
+                              <span className="absolute -translate-y-1/2 start-4 top-1/2">
+                                <ImageIcon className="w-4 h-4 text-black-60 dark:text-black-10" />
+                              </span>
+                              <Input
+                                id="search"
+                                type="text"
+                                aria-autocomplete="none"
+                                autoComplete="off"
+                                variant="icons"
+                                placeholder="Pesquisar imagem"
+                                className="!px-0 !pl-10 pr-4"
+                                {...field}
+                              />
+                            </div>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </form>
+                </Form>
+              </div>
+              <footer className="flex items-center justify-start py-4 mr-auto space-x-2 md:hidden">
+                <PaginationButtons
+                  hrefToPreviousButton={`${pathname}?${createQueryString({
+                    page: Number(page) - 1,
+                    per_page: perPage ?? null,
+                  })}`}
+                  hrefToNextButton={`${pathname}?${createQueryString({
+                    page: Number(page) + 1,
+                    per_page: perPage ?? null,
+                  })}`}
+                  isLoading={isLoadindAssetList}
+                  page={page}
+                  pathname={pathname}
+                  perPage={perPage}
+                  totalItems={assetList?.assets.totalItems ?? 0}
+                  className="justify-end"
+                />
+              </footer>
+              <div className="grid flex-row flex-wrap grid-cols-1 gap-4 md:flex ">
+                {assetList?.assets.items.map((asset) => {
+                  const includesInSelectedsRows = findInSelectedRows(asset);
 
-                return (
-                  <Button
-                    key={asset.id}
-                    className="relative flex items-center justify-center w-full h-40 overflow-hidden border-2 rounded-lg cursor-pointer md:size-36 group dark:border-black-60 border-black-10"
-                    onClick={() => handleSelectPhtoOrVideo(asset)}
-                  >
-                    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center w-full h-full gap-1 transition-all duration-200 ease-linear opacity-0 bg-black-70 dark:bg-black-80 hover:opacity-100 group-hover:dark:bg-black-80/90 group-hover:bg-black-80/90">
-                      <Check className="text-success" />
-                      <p className="font-medium text-black-10">Selecionar</p>
-                    </div>
-                    {includesInSelectedsRows && (
-                      <div className="absolute inset-0 z-50 flex flex-col items-center justify-center w-full h-full gap-1 bg-black/70 dark:bg-black/90">
-                        <CheckCircle className="text-success" />
-                        <p className="font-medium text-black-10">Selecionado</p>
+                  return (
+                    <Button
+                      key={asset.id}
+                      className="relative flex items-center justify-center w-full h-40 overflow-hidden border-2 rounded-lg cursor-pointer md:size-36 group dark:border-black-60 border-black-10"
+                      onClick={() => handleSelectPhtoOrVideo(asset)}
+                    >
+                      <div className="absolute inset-0 z-50 flex flex-col items-center justify-center w-full h-full gap-1 transition-all duration-200 ease-linear opacity-0 bg-black-70 dark:bg-black-80 hover:opacity-100 group-hover:dark:bg-black-80/90 group-hover:bg-black-80/90">
+                        <Check className="text-success" />
+                        <p className="font-medium text-black-10">Selecionar</p>
                       </div>
-                    )}
-                    {asset.type === "VIDEO" ? (
-                      <video
-                        className="z-40 object-contain w-full h-full"
-                        muted
-                        autoPlay
-                        loop
-                        width={160}
-                        height={160}
-                      >
-                        <source src={asset.source} />
-                      </video>
-                    ) : (
-                      <Image
-                        src={asset.preview ?? ""}
-                        alt="Imagem do produto"
-                        className="object-contain w-full h-full"
-                        width={160}
-                        height={160}
-                      />
-                    )}
-                  </Button>
-                );
-              })}
-            </div>
-            <footer className="items-center justify-end hidden py-4 space-x-2 md:flex">
-              <PaginationButtons
-                hrefToPreviousButton={`${pathname}?${createQueryString({
-                  page: Number(page) - 1,
-                  per_page: perPage ?? null,
-                })}`}
-                hrefToNextButton={`${pathname}?${createQueryString({
-                  page: Number(page) + 1,
-                  per_page: perPage ?? null,
-                })}`}
-                isLoading={isLoadindAssetList}
-                page={page}
-                pathname={pathname}
-                perPage={perPage}
-                totalItems={assetList?.assets.totalItems ?? 0}
-                className="justify-end"
-              />
-            </footer>
-          </main>
+                      {includesInSelectedsRows && (
+                        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center w-full h-full gap-1 bg-black/70 dark:bg-black/90">
+                          <CheckCircle className="text-success" />
+                          <p className="font-medium text-black-10">
+                            Selecionado
+                          </p>
+                        </div>
+                      )}
+                      {asset.type === "VIDEO" ? (
+                        <video
+                          className="z-40 object-contain w-full h-full"
+                          muted
+                          autoPlay
+                          loop
+                          width={160}
+                          height={160}
+                        >
+                          <source src={asset.source} />
+                        </video>
+                      ) : (
+                        <Image
+                          src={asset.preview ?? ""}
+                          alt="Imagem do produto"
+                          className="object-contain w-full h-full"
+                          width={160}
+                          height={160}
+                        />
+                      )}
+                    </Button>
+                  );
+                })}
+              </div>
+              <footer className="items-center hidden py-4 mr-auto space-x-2 md:flex">
+                <PaginationButtons
+                  hrefToPreviousButton={`${pathname}?${createQueryString({
+                    page: Number(page) - 1,
+                    per_page: perPage ?? null,
+                  })}`}
+                  hrefToNextButton={`${pathname}?${createQueryString({
+                    page: Number(page) + 1,
+                    per_page: perPage ?? null,
+                  })}`}
+                  isLoading={isLoadindAssetList}
+                  page={page}
+                  pathname={pathname}
+                  perPage={perPage}
+                  totalItems={assetList?.assets.totalItems ?? 0}
+                  className="justify-end"
+                />
+              </footer>
+            </main>
 
-          <div>
-            <UploadImage
-              className="flex-1 w-full ml-auto h-fit"
-              textImagesAccept="jpg, png, jpeg e video"
-              widthImagesAccept="1010Kb"
-              onChange={handleSelectImages}
-              isLoading={isLoadingCreateAsset}
-              multiple={isMultiple}
-            />
-            <footer className="flex flex-wrap justify-end gap-4 mt-4 ml-auto">
-              <Button
-                type="button"
-                variant="clear"
-                className="w-full border border-black-10 md:w-fit"
-                onClick={() => setIsOpenModal(false)}
-              >
-                Voltar
-              </Button>
-              <Button
-                type="submit"
-                variant="primary"
-                onClick={handleConfirmSelection}
-                className="w-full md:w-fit"
-              >
-                Confirmar
-              </Button>
-            </footer>
+            <div>
+              <UploadImage
+                className="flex-1 w-full ml-auto h-fit"
+                textImagesAccept="jpg, png, jpeg e video"
+                widthImagesAccept="1010Kb"
+                onChange={handleSelectImages}
+                isLoading={isLoadingCreateAsset}
+                multiple={isMultiple}
+              />
+              <footer className="flex flex-wrap justify-end gap-4 mt-4 ">
+                <Button
+                  type="button"
+                  variant="clear"
+                  className="flex items-center flex-1 w-full gap-1 border group lg:w-fit hover:dark:bg-white text-black-80 dark:text-white hover:dark:text-black-80 border-black-10 hover:bg-black-80 hover:text-white"
+                  onClick={() => setIsOpenModal(false)}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  onClick={handleConfirmSelection}
+                  className="flex-1 w-full border border-primary"
+                  disabled={listImagesSelected.length === 0}
+                >
+                  Confirmar
+                </Button>
+              </footer>
+            </div>
           </div>
-        </Modal>
+        </DialogModal>
       </FormProvider>
     );
   }

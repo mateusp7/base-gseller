@@ -1146,13 +1146,14 @@
     clsx "^2.1.0"
     tailwind-merge "^2.2.0"
 
-"@gseller-monorepo/modal@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@gseller-monorepo/modal/-/modal-0.0.3.tgz#ad1910e22a07770f6d162abf18b7ecbaa3214649"
-  integrity sha512-BdtKVbWMLNb498uFN1/H/4B8uwrGfk95IPsPeHeSGzAggt4caY9L6OQKrmzTMSkIE76mXVrG7I/Sl7nbwhLi5g==
+"@gseller-monorepo/modal@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/modal/-/modal-0.0.4.tgz#dfd11e273aa17786c3b1db497f747981bdb9e032"
+  integrity sha512-kpPChX6UvKFYb0X/t170ZOMoUONPBDyfJLBY9dEqABZqJRpAtTmBg+GLaBU8X60RyzFCekgG9m+9535yRg/FUA==
   dependencies:
     "@gseller-monorepo/button" "*"
-    "@radix-ui/react-alert-dialog" "^1.0.5"
+    "@radix-ui/react-dialog" "^1.0.5"
+    "@radix-ui/react-scroll-area" "^1.0.5"
     autoprefixer "^10.0.1"
     clsx "^2.1.0"
     postcss "^8"
@@ -1508,19 +1509,6 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@radix-ui/react-alert-dialog@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.0.5.tgz#70dd529cbf1e4bff386814d3776901fcaa131b8c"
-  integrity sha512-OrVIOcZL0tl6xibeuGt5/+UxoT2N27KCFOPjFyfXMnchxSHZ/OW7cCX2nGlIYJrbHK/fczPcFzAwvNBB6XBNMA==
-  dependencies:
-    "@babel/runtime" "^7.13.10"
-    "@radix-ui/primitive" "1.0.1"
-    "@radix-ui/react-compose-refs" "1.0.1"
-    "@radix-ui/react-context" "1.0.1"
-    "@radix-ui/react-dialog" "1.0.5"
-    "@radix-ui/react-primitive" "1.0.3"
-    "@radix-ui/react-slot" "1.0.2"
-
 "@radix-ui/react-arrow@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-arrow/-/react-arrow-1.0.3.tgz#c24f7968996ed934d57fe6cde5d6ec7266e1d25d"
@@ -1569,7 +1557,7 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@radix-ui/react-dialog@1.0.5":
+"@radix-ui/react-dialog@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-dialog/-/react-dialog-1.0.5.tgz#71657b1b116de6c7a0b03242d7d43e01062c7300"
   integrity sha512-GjWJX/AUpB703eEBanuBnIWdIXg6NvJFCXcNlSZk4xdszCdhrJgBoUd1cGk67vFO+WdA2pfI/plOpqz/5GUP6Q==
