@@ -1,32 +1,28 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink
-} from '@apollo/client/core'
-import { setContext } from '@apollo/client/link/context'
+import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client/core";
+import { setContext } from "@apollo/client/link/context";
 
-import { getCookie } from './storage'
-
-const httpLink = createHttpLink({
-  uri: `${process.env.NEXT_PUBLIC_URL}/admin-api`
-})
+import { createUploadLink } from "apollo-upload-client";
+import { getCookie } from "./storage";
 
 const authLink = setContext((_, { headers }) => {
-  const token = getCookie('vendure.token')
-  const channelToken = getCookie('channel.token')
+  const token = getCookie("vendure.token");
+  const channelToken = getCookie("channel.token");
 
   return {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,
-      'vendure-token': channelToken ?? ''
-    }
-  }
-})
+      "vendure-token": channelToken ?? "",
+    },
+  };
+});
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache();
+const link = createUploadLink({
+  uri: `${process.env.NEXT_PUBLIC_URL}/admin-api?languageCode=pt_BR`,
+});
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache
-})
+  link: authLink.concat(link as unknown as ApolloLink),
+  cache,
+});
