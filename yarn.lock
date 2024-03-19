@@ -1106,6 +1106,19 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
+"@gseller-monorepo/breadcrumbs@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/breadcrumbs/-/breadcrumbs-0.0.4.tgz#9d1a9c637f29ba59156da3932f04d03c4cea14c0"
+  integrity sha512-dgTAoOACuKcZBj1Mkx0SyT9hB0J1h8JSETiFwvQWTDfOC22TErfU2v5ZcAz+nJn4bFIqWB0IuxLTYUIIt5kVTw==
+  dependencies:
+    class-variance-authority "^0.7.0"
+    clsx "^2.1.0"
+    lucide-react "^0.307.0"
+    next "^14.0.4"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    tailwind-merge "^2.2.0"
+
 "@gseller-monorepo/button@*", "@gseller-monorepo/button@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@gseller-monorepo/button/-/button-0.0.1.tgz#70a33928bf16b940218cb902f6d3e629454a02fe"
@@ -1136,6 +1149,26 @@
     tailwind-merge "^2.2.1"
     tailwindcss "^3.3.0"
     tailwindcss-animate "^1.0.7"
+
+"@gseller-monorepo/header@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/header/-/header-0.0.4.tgz#061e374c17505e33f5934b81e1f3fb959c56d51c"
+  integrity sha512-gRfUdoA7PDtgpoYUlIFI3POPZhtBOGhD1Y3sZ9gs0JE/G/fVLXCskWABys45vhzkBL/2bo6dwQuTlab3vLchKw==
+  dependencies:
+    "@gseller-monorepo/button" "^0.0.1"
+    "@gseller-monorepo/select" "^0.0.7"
+    "@gseller-monorepo/sidebar" "^0.0.3"
+    "@gseller-monorepo/skeleton" "^0.0.1"
+    "@gseller-monorepo/theme" "^0.0.4"
+    autoprefixer "^10.0.1"
+    clsx "^2.1.0"
+    lucide-react "^0.330.0"
+    next "^14.1.0"
+    postcss "^8"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    tailwind-merge "^2.2.0"
+    tailwindcss "^3.3.0"
 
 "@gseller-monorepo/input@^0.0.3":
   version "0.0.3"
@@ -1189,6 +1222,23 @@
     lucide "^0.314.0"
     tailwindcss-animated "^1.0.1"
 
+"@gseller-monorepo/select@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/select/-/select-0.0.7.tgz#ebce49774d09030da4f4716f3f4d65fc94a2ad03"
+  integrity sha512-j9gcQxbtZ5rapox9Nx7SoGOc1KwO8xfu3QiyaytjJUQQSmo8mSkkMDNqa2Jn6Bdhssb4UiUBLRq+3PhtTDgglw==
+  dependencies:
+    "@gseller-monorepo/skeleton" "^0.0.1"
+    "@radix-ui/react-select" "^2.0.0"
+    lucide "^0.314.0"
+    tailwindcss-animated "^1.0.1"
+
+"@gseller-monorepo/shell@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/shell/-/shell-0.0.2.tgz#7d3d717f6f01a87a78d010207047e810edd44124"
+  integrity sha512-+eJYmUBRaH4Ru7z615Z4+0n4vOi0xKFcCyAwYerp3V9lkcc2m1u8JnNBCEmhYN4j+xFWfU6DYr2xyZvGUKY03A==
+  dependencies:
+    clsx "^2.1.0"
+
 "@gseller-monorepo/sidebar@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@gseller-monorepo/sidebar/-/sidebar-0.0.3.tgz#6548cf5b8df70a9873be705ff21b76a5bf24b02e"
@@ -1222,6 +1272,25 @@
     tailwind-merge "^2.2.0"
     tailwindcss "^3.3.0"
     tailwindcss-animate "^1.0.7"
+
+"@gseller-monorepo/theme@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@gseller-monorepo/theme/-/theme-0.0.4.tgz#c898e0fddc2b3476de4a9a35d5a84a774bf98c1a"
+  integrity sha512-HQ9jKLkobGpVVt4FTY55jIbSFM0rhqeji+bdl0NBM19kLM/HPMJf13sLTAGzvHlHYQqCbVcBL8nBKD8K66yYww==
+  dependencies:
+    "@gseller-monorepo/button" "^0.0.1"
+    "@radix-ui/react-dropdown-menu" "^2.0.6"
+    autoprefixer "^10.0.1"
+    class-variance-authority "^0.7.0"
+    clsx "^2.1.0"
+    lucide-react "^0.307.0"
+    next "^14.0.4"
+    next-themes "^0.2.1"
+    postcss "^8"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    tailwind-merge "^2.2.0"
+    tailwindcss "^3.3.0"
 
 "@gseller-monorepo/title@^0.0.5":
   version "0.0.5"
@@ -1597,6 +1666,20 @@
     "@radix-ui/react-use-callback-ref" "1.0.1"
     "@radix-ui/react-use-escape-keydown" "1.0.3"
 
+"@radix-ui/react-dropdown-menu@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.0.6.tgz#cdf13c956c5e263afe4e5f3587b3071a25755b63"
+  integrity sha512-i6TuFOoWmLWq+M/eCLGd/bQ2HfAX1RJgvrBQ6AQLmzfvsLdefxbWu8G9zczcPFfcSPehz9GcpF6K9QYreFV8hA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.1"
+    "@radix-ui/react-compose-refs" "1.0.1"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-id" "1.0.1"
+    "@radix-ui/react-menu" "2.0.6"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-use-controllable-state" "1.0.1"
+
 "@radix-ui/react-focus-guards@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-focus-guards/-/react-focus-guards-1.0.1.tgz#1ea7e32092216b946397866199d892f71f7f98ad"
@@ -1634,6 +1717,31 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-primitive" "1.0.3"
+
+"@radix-ui/react-menu@2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-menu/-/react-menu-2.0.6.tgz#2c9e093c1a5d5daa87304b2a2f884e32288ae79e"
+  integrity sha512-BVkFLS+bUC8HcImkRKPSiVumA1VPOOEC5WBMiT+QAVsPzW1FJzI9KnqgGxVDPBcql5xXrHkD3JOVoXWEXD8SYA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.1"
+    "@radix-ui/react-collection" "1.0.3"
+    "@radix-ui/react-compose-refs" "1.0.1"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-direction" "1.0.1"
+    "@radix-ui/react-dismissable-layer" "1.0.5"
+    "@radix-ui/react-focus-guards" "1.0.1"
+    "@radix-ui/react-focus-scope" "1.0.4"
+    "@radix-ui/react-id" "1.0.1"
+    "@radix-ui/react-popper" "1.1.3"
+    "@radix-ui/react-portal" "1.0.4"
+    "@radix-ui/react-presence" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-roving-focus" "1.0.4"
+    "@radix-ui/react-slot" "1.0.2"
+    "@radix-ui/react-use-callback-ref" "1.0.1"
+    aria-hidden "^1.1.1"
+    react-remove-scroll "2.5.5"
 
 "@radix-ui/react-popper@1.1.3":
   version "1.1.3"
@@ -1676,6 +1784,22 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-slot" "1.0.2"
+
+"@radix-ui/react-roving-focus@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-roving-focus/-/react-roving-focus-1.0.4.tgz#e90c4a6a5f6ac09d3b8c1f5b5e81aab2f0db1974"
+  integrity sha512-2mUg5Mgcu001VkGy+FfzZyzbmuUWzgWkj3rvv4yu+mLw03+mTzbxZHvfcGyFp2b8EkQeMkpRQ5FiA2Vr2O6TeQ==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.1"
+    "@radix-ui/react-collection" "1.0.3"
+    "@radix-ui/react-compose-refs" "1.0.1"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-direction" "1.0.1"
+    "@radix-ui/react-id" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-use-callback-ref" "1.0.1"
+    "@radix-ui/react-use-controllable-state" "1.0.1"
 
 "@radix-ui/react-scroll-area@^1.0.5":
   version "1.0.5"
@@ -4365,6 +4489,11 @@ lucide-react@^0.320.0:
   resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.320.0.tgz#c0be9134bd01619bdbea7d426e4312cc7187aefb"
   integrity sha512-HuMmfmFiWwctDkN27wklKVZr8UpwP2TTekLZ3xiLCEjx/STG1k0KLWMbBfIJ/lnNJQDfSjztDZSVU316xA+AQg==
 
+lucide-react@^0.330.0:
+  version "0.330.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.330.0.tgz#6e17ade4953ac3ca322f9564f2fd900f21829244"
+  integrity sha512-CQwY+Fpbt2kxCoVhuN0RCZDCYlbYnqB870Bl/vIQf3ER/cnDDQ6moLmEkguRyruAUGd4j3Lc4mtnJosXnqHheA==
+
 lucide@^0.314.0:
   version "0.314.0"
   resolved "https://registry.yarnpkg.com/lucide/-/lucide-0.314.0.tgz#3552558e3f9a4c80f6b92c9cb8b6e11e2f3239f9"
@@ -4509,7 +4638,7 @@ next@14.0.4:
     "@next/swc-win32-ia32-msvc" "14.0.4"
     "@next/swc-win32-x64-msvc" "14.0.4"
 
-next@^14.0.1, next@^14.0.4:
+next@^14.0.1, next@^14.0.4, next@^14.1.0:
   version "14.1.3"
   resolved "https://registry.yarnpkg.com/next/-/next-14.1.3.tgz#465bb21a1a6e703e776ca53ea71d05642867fdb5"
   integrity sha512-oexgMV2MapI0UIWiXKkixF8J8ORxpy64OuJ/J9oVUmIthXOUCcuVEZX+dtpgq7wIfIqtBwQsKEDXejcjTsan9g==
