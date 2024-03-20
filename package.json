@@ -12,7 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.9.5",
     "string-width": "4.2.3",
-    "@gseller-monorepo/button": "^0.0.1",
+    "@gseller-monorepo/button": "^0.0.3",
     "@gseller-monorepo/input": "^0.0.3",
     "@gseller-monorepo/modal": "^0.0.4",
     "@gseller-monorepo/header": "^0.0.4",
